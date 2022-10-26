@@ -10,24 +10,23 @@ class CocktailRepositoryImp @Inject constructor(
 
     override suspend fun getCocktails(): List<Cocktail> {
 
-        val cocktails = arrayListOf<Cocktail>()
         val cocktailDTO = cocktailApi.getCocktails().body()
 
-        cocktailDTO?.drinks?.forEach {
-            cocktails.add(
+        if (cocktailDTO != null) {
+            return cocktailDTO.drinks.map {
                 Cocktail(
                     drinkId = it.drinkId,
-                    name = (it.name ?: ""),
-                    category = (it.category ?: ""),
-                    isAlcoholic = (it.isAlcoholic ?: ""),
-                    recommendedGlassType = (it.recommendedGlassType ?: ""),
+                    name = it.name ?: "",
+                    category = it.category ?: "",
+                    isAlcoholic = it.isAlcoholic == "Alcoholic",
+                    recommendedGlassType = it.recommendedGlassType ?: "",
                     instructions = (it.instructions ?: ""),
                     thumbnailUrl = (it.thumbnailUrl ?: "")
                 )
-            )
+            }
         }
 
-        return cocktails
+        return arrayListOf()
     }
 
 }

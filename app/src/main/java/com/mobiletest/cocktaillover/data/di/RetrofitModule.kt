@@ -22,6 +22,7 @@ class RetrofitModule {
     @Provides
     fun provideRetrofitInstance(
         @Named("BaseUrl") baseUrl: String
+
     ): Retrofit {
         return Retrofit.Builder()
             .baseUrl(baseUrl)
@@ -35,5 +36,6 @@ class RetrofitModule {
     ): CocktailApi {
         return retrofit.create(CocktailApi::class.java)
     }
+
 
 }
