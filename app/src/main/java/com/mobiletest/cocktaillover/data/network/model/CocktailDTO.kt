@@ -3,9 +3,7 @@ package com.mobiletest.cocktaillover.data.network.model
 import com.google.gson.annotations.SerializedName
 
 data class CocktailDTO(
-
     @SerializedName("drinks") var drinks: List<Drink>
-
 ) {
 
     data class Drink(

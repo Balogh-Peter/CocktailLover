@@ -7,7 +7,6 @@ data class CocktailWithPictureSource(
     var cocktail: Cocktail
 ) : Serializable {
 
-
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
         if (javaClass != other?.javaClass) return false
@@ -22,6 +21,5 @@ data class CocktailWithPictureSource(
         result = 31 * result + cocktail.hashCode()
         return result
     }
-
 
 }

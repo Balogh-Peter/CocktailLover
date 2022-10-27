@@ -28,6 +28,7 @@ class CocktailListAdapter(
         private var onInfoButtonClick: ((position: Int) -> Unit)?
     ) : RecyclerView.ViewHolder(itemBinding.root) {
 
+        //TODO the adapter should use data binding too
         fun bind(cocktail: CocktailWithPictureBitmap, listPosition: Int) {
             itemBinding.image.setImageBitmap(cocktail.bitmap)
             itemBinding.name.text = cocktail.cocktail.name

@@ -36,7 +36,7 @@ class GetCocktailsWithPictureSources @Inject constructor(
         }
 
         if (cocktails.isNotEmpty()) {
-            cocktailWithPictureSources.removeAt(0)
+            cocktailWithPictureSources.removeAt(0) //First picture from the API is pixelated :D
         }
         return cocktailWithPictureSources
     }

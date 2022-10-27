@@ -39,9 +39,7 @@ class CocktailListFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        lifecycleScope.launchWhenCreated {
-            initViews()
-        }
+        initViews()
     }
 
     override fun onDestroyView() {
