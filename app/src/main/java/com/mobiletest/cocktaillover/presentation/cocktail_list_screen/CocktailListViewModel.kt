@@ -5,6 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.mobiletest.cocktaillover.domain.GetCocktailsWithPictureSources
+import com.mobiletest.cocktaillover.domain.StoreCocktailDataInDatabase
 import com.mobiletest.cocktaillover.domain.model.CocktailWithPictureSource
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
@@ -13,7 +14,8 @@ import javax.inject.Inject
 
 @HiltViewModel
 class CocktailListViewModel @Inject constructor(
-    private val getCocktailsWithPictureSources: GetCocktailsWithPictureSources
+    private val getCocktailsWithPictureSources: GetCocktailsWithPictureSources,
+    private val storeCocktailDataInDatabase: StoreCocktailDataInDatabase
 ) : ViewModel() {
 
     // Region Start - Live Data
@@ -43,11 +45,14 @@ class CocktailListViewModel @Inject constructor(
     }
 
     fun onCreateCalled() {
-        viewModelScope.launch(Dispatchers.IO) {
-            _progressBarVisible.postValue(true)
-            val pictureSources = getCocktailsWithPictureSources()
-            _cocktailsWithPictureSources.postValue(pictureSources)
-            _progressBarVisible.postValue(false)
+        if (_cocktailsWithPictureSources.value!!.isEmpty()) {
+            viewModelScope.launch(Dispatchers.IO) {
+                _progressBarVisible.postValue(true)
+                val pictureSources = getCocktailsWithPictureSources()
+                _cocktailsWithPictureSources.postValue(pictureSources)
+                _progressBarVisible.postValue(false)
+                storeCocktailDataInDatabase(pictureSources)
+            }
         }
 
     }

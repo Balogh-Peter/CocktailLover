@@ -1,8 +1,8 @@
-package com.mobiletest.cocktaillover.data.di
+package com.mobiletest.cocktaillover.data.network.di
 
-import com.mobiletest.cocktaillover.data.api_interface.CocktailApi
-import com.mobiletest.cocktaillover.data.repository.CocktailRepository
-import com.mobiletest.cocktaillover.data.repository.CocktailRepositoryImp
+import com.mobiletest.cocktaillover.data.network.api_interface.CocktailApi
+import com.mobiletest.cocktaillover.data.network.repository.CocktailRepository
+import com.mobiletest.cocktaillover.data.network.repository.CocktailRepositoryImp
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

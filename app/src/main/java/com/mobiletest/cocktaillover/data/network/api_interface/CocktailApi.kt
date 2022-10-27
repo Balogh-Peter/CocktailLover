@@ -1,6 +1,6 @@
-package com.mobiletest.cocktaillover.data.api_interface
+package com.mobiletest.cocktaillover.data.network.api_interface
 
-import com.mobiletest.cocktaillover.data.model.CocktailDTO
+import com.mobiletest.cocktaillover.data.network.model.CocktailDTO
 import retrofit2.Response
 import retrofit2.http.GET
 

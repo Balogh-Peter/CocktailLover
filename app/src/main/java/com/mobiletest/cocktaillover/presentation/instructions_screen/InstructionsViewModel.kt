@@ -20,6 +20,10 @@ class InstructionsViewModel @Inject constructor() : ViewModel() {
     var cocktailData: CocktailWithPictureSource? = null
 
 
+    init {
+        _instructions.value = ""
+    }
+
     fun onCreateCalled(cocktailData: CocktailWithPictureSource) {
         _instructions.value = cocktailData.cocktail.instructions
         this.cocktailData = cocktailData

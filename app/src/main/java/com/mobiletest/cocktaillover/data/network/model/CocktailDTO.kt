@@ -1,4 +1,4 @@
-package com.mobiletest.cocktaillover.data.model
+package com.mobiletest.cocktaillover.data.network.model
 
 import com.google.gson.annotations.SerializedName
 

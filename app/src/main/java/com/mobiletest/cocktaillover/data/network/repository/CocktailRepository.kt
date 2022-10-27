@@ -1,4 +1,4 @@
-package com.mobiletest.cocktaillover.data.repository
+package com.mobiletest.cocktaillover.data.network.repository
 
 import com.mobiletest.cocktaillover.domain.model.Cocktail
 

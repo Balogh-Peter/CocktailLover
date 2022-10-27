@@ -1,6 +1,6 @@
-package com.mobiletest.cocktaillover.data.repository
+package com.mobiletest.cocktaillover.data.network.repository
 
-import com.mobiletest.cocktaillover.data.api_interface.CocktailApi
+import com.mobiletest.cocktaillover.data.network.api_interface.CocktailApi
 import com.mobiletest.cocktaillover.domain.model.Cocktail
 import javax.inject.Inject
 

@@ -1,10 +1,11 @@
 
 buildscript {
     project.ext {
-        navigation = "2.5.2"
+        navigation = "2.5.3"
     }
     repositories {
         google()
+        mavenCentral()
     }
     dependencies {
         classpath "androidx.navigation:navigation-safe-args-gradle-plugin:$navigation"
