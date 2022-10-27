@@ -3,26 +3,46 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/FirstFragment">
+    app:startDestination="@id/CocktailList">
 
     <fragment
-        android:id="@+id/FirstFragment"
+        android:id="@+id/CocktailList"
         android:name="com.mobiletest.cocktaillover.presentation.cocktail_list_screen.CocktailListFragment"
-        android:label="@string/first_fragment_label"
+        android:label="@string/cocktail_list_fragment_label"
         tools:layout="@layout/fragment_cocktail_list">
 
         <action
-            android:id="@+id/action_FirstFragment_to_SecondFragment"
-            app:destination="@id/SecondFragment" />
-    </fragment>
-    <fragment
-        android:id="@+id/SecondFragment"
-        android:name="com.mobiletest.cocktaillover.presentation.CocktailDetailsFragment"
-        android:label="@string/second_fragment_label"
-        tools:layout="@layout/fragment_cocktail_details">
+            android:id="@+id/action_CocktailList_to_CocktailDetails"
+            app:destination="@id/CocktailDetails" />
 
         <action
-            android:id="@+id/action_SecondFragment_to_FirstFragment"
-            app:destination="@id/FirstFragment" />
+            android:id="@+id/action_CocktailList_to_Instructions"
+            app:destination="@id/Instructions" />
+
     </fragment>
+
+    <fragment
+        android:id="@+id/CocktailDetails"
+        android:name="com.mobiletest.cocktaillover.presentation.cocktail_details_screen.CocktailDetailsFragment"
+        android:label="@string/cocktail_details_fragment_label"
+        tools:layout="@layout/fragment_cocktail_details">
+
+        <argument
+            android:name="cocktailData"
+            app:argType="com.mobiletest.cocktaillover.domain.model.CocktailWithPictureSource" />
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/Instructions"
+        android:name="com.mobiletest.cocktaillover.presentation.instructions_screen.InstructionsFragment"
+        android:label="@string/instructions_fragment_label"
+        tools:layout="@layout/fragment_cocktail_details">
+
+        <argument
+            android:name="cocktailData"
+            app:argType="com.mobiletest.cocktaillover.domain.model.CocktailWithPictureSource" />
+
+    </fragment>
+
 </navigation>

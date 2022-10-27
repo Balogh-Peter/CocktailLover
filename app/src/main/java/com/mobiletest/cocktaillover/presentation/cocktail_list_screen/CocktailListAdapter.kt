@@ -1,15 +1,15 @@
 package com.mobiletest.cocktaillover.presentation.cocktail_list_screen
 
-import android.graphics.Bitmap
-import android.graphics.BitmapFactory
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.mobiletest.cocktaillover.databinding.CocktailListItemBinding
 import com.mobiletest.cocktaillover.domain.model.CocktailWithPictureSource
+import com.mobiletest.cocktaillover.presentation.GetBitmapFromByteArray
 
 class CocktailListAdapter(
-    private var onItemClick: ((position: Int) -> Unit)?
+    private var onItemClick: ((position: Int) -> Unit)?,
+    private var onInfoButtonClick: ((position: Int) -> Unit)?
 ) :
     RecyclerView.Adapter<CocktailListAdapter.ViewHolder>() {
 
@@ -17,27 +17,26 @@ class CocktailListAdapter(
 
     fun updateItems(cocktails: List<CocktailWithPictureSource>) {
         this.cocktails = listOf()
-
         notifyItemRangeRemoved(0, cocktails.size)
         this.cocktails = getCocktailsWithPictureBitmap(cocktails)
         notifyItemRangeInserted(0, cocktails.size)
-
-
-        // notifyItemRangeRemoved(0, cocktails.size)
-        //  notifyDataSetChanged()
     }
 
     class ViewHolder(
         private val itemBinding: CocktailListItemBinding,
-        private val onItemClick: ((position: Int) -> Unit)?
+        private val onItemClick: ((position: Int) -> Unit)?,
+        private var onInfoButtonClick: ((position: Int) -> Unit)?
     ) : RecyclerView.ViewHolder(itemBinding.root) {
 
         fun bind(cocktail: CocktailWithPictureBitmap, listPosition: Int) {
             itemBinding.image.setImageBitmap(cocktail.bitmap)
-            itemBinding.text1.text = cocktail.cocktail.name
-            itemBinding.text2.text = cocktail.cocktail.category
+            itemBinding.name.text = cocktail.cocktail.name
+            itemBinding.category.text = cocktail.cocktail.category
             itemBinding.root.setOnClickListener {
                 onItemClick?.invoke(listPosition)
+            }
+            itemBinding.infoButton.setOnClickListener {
+                onInfoButtonClick?.invoke(listPosition)
             }
         }
 
@@ -49,7 +48,7 @@ class CocktailListAdapter(
             viewGroup,
             false
         )
-        return ViewHolder(binding, onItemClick)
+        return ViewHolder(binding, onItemClick, onInfoButtonClick)
     }
 
     override fun onBindViewHolder(viewHolder: ViewHolder, position: Int) {
@@ -66,7 +65,7 @@ class CocktailListAdapter(
         cocktails.forEach {
             cocktailsWithPictureBitmap.add(
                 CocktailWithPictureBitmap(
-                    bitmap = getBitmapFromByteArray(it.byteArray),
+                    bitmap = GetBitmapFromByteArray()(it.byteArray),
                     cocktail = it.cocktail
                 )
             )
@@ -74,10 +73,5 @@ class CocktailListAdapter(
 
         return cocktailsWithPictureBitmap
     }
-
-    private fun getBitmapFromByteArray(byteArray: ByteArray): Bitmap {
-        return BitmapFactory.decodeByteArray(byteArray, 0, byteArray.size)
-    }
-
 
 }

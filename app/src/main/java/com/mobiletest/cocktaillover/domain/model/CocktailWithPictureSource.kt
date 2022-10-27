@@ -1,9 +1,11 @@
 package com.mobiletest.cocktaillover.domain.model
 
+import java.io.Serializable
+
 data class CocktailWithPictureSource(
     var byteArray: ByteArray,
     var cocktail: Cocktail
-) {
+) : Serializable {
 
 
     override fun equals(other: Any?): Boolean {

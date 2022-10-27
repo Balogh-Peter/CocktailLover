@@ -9,12 +9,13 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.mobiletest.cocktaillover.R
 import com.mobiletest.cocktaillover.databinding.FragmentCocktailListBinding
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class CocktailListFragment : Fragment() {
+
+    private var adapter: CocktailListAdapter? = null
 
     private var _binding: FragmentCocktailListBinding? = null
     private val binding get() = _binding!!
@@ -23,7 +24,7 @@ class CocktailListFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        viewModel.onViewCreatedCalled()
+        viewModel.onCreateCalled()
     }
 
     override fun onCreateView(
@@ -31,6 +32,8 @@ class CocktailListFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentCocktailListBinding.inflate(inflater, container, false)
+        binding.viewmodel = viewModel
+        binding.lifecycleOwner = this
         return binding.root
     }
 
@@ -41,25 +44,52 @@ class CocktailListFragment : Fragment() {
         }
     }
 
-    private var adapter: CocktailListAdapter? = null
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
+    }
 
     private fun initViews() {
-        adapter = CocktailListAdapter {
-            viewModel.onListItemClick(it)
-            findNavController().navigate(R.id.action_FirstFragment_to_SecondFragment)
-        }
+        initAdapter()
+        observeChangesInViewModel()
+    }
+
+    private fun initAdapter() {
+        adapter = CocktailListAdapter(
+            {
+                viewModel.onListItemClick(it)
+            },
+            {
+                viewModel.onInfoItemClick(it)
+            }
+        )
         binding.cocktailList.adapter = adapter
         binding.cocktailList.layoutManager = LinearLayoutManager(activity)
+    }
 
+    private fun observeChangesInViewModel() {
         viewModel.cocktailsWithPictureSources.observe(viewLifecycleOwner) {
             adapter?.updateItems(it)
         }
 
-    }
+        viewModel.openDetailsScreen.observe(viewLifecycleOwner) {
+            if (it) {
+                val action = CocktailListFragmentDirections.actionCocktailListToCocktailDetails(
+                    viewModel.cocktailData
+                )
+                findNavController().navigate(action)
+            }
+        }
 
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
+        viewModel.openInstructionsScreen.observe(viewLifecycleOwner) {
+            if (it) {
+                val action = CocktailListFragmentDirections.actionCocktailListToInstructions(
+                    viewModel.cocktailData
+                )
+                findNavController().navigate(action)
+            }
+        }
+
     }
 
 }

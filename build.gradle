@@ -1,4 +1,16 @@
 
+buildscript {
+    project.ext {
+        navigation = "2.5.2"
+    }
+    repositories {
+        google()
+    }
+    dependencies {
+        classpath "androidx.navigation:navigation-safe-args-gradle-plugin:$navigation"
+    }
+}
+
 plugins {
     id 'com.android.application' version '7.3.1' apply false
     id 'com.android.library' version '7.3.1' apply false
@@ -9,3 +21,4 @@ plugins {
 task clean(type: Delete) {
     delete rootProject.buildDir
 }
+
